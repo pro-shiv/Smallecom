@@ -18,3 +18,7 @@ Route::get('/products/{slug}', [ProductController::class, 'show'])->name('produc
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+Route::get('/about', function () {
+    return view('frontend.pages.about.index');
+})->name('about');

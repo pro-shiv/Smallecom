@@ -7,13 +7,13 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
 
-    @include('layouts.frontend.header')
+    @include('frontend.components.header')
 
     <main class="container mx-auto px-4 py-6">
         @yield('content')
     </main>
 
-    @include('layouts.frontend.footer')
+    @include('frontend.components.footer')
 
 </body>
 </html>
