@@ -2,25 +2,9 @@
 
 @section('content')
 
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="flex flex-col md:flex-row items-center gap-8 bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div class="w-full md:w-1/2 p-8 lg:p-16 flex flex-col justify-center">
-            <span class="text-brand-cta font-bold tracking-wider uppercase text-sm mb-4">New Collection</span>
-            <h1 class="text-4xl lg:text-5xl font-bold text-brand-primary leading-tight mb-6">
-                Discover Your Perfect Style Today
-            </h1>
-            <p class="text-brand-muted text-lg mb-8">
-                Explore our curated collection of premium products designed to elevate your everyday life.
-            </p>
-            <div>
-                <a href="/shop" class="inline-block bg-brand-cta hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition transform hover:-translate-y-0.5">
-                    Shop Now
-                </a>
-            </div>
-        </div>
-        
-        <div class="w-full md:w-1/2 h-96 md:h-[500px] relative rounded-xl overflow-hidden group">
-    <div class="swiper hero-swiper w-full h-full">
+<section class="w-full relative h-[500px] md:h-[600px] lg:h-[70vh] min-h-[500px] m-0 p-0">
+    
+    <div class="swiper hero-swiper w-full h-full absolute inset-0 z-0">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80" alt="Slide 1" class="w-full h-full object-cover">
@@ -32,14 +16,36 @@
                 <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80" alt="Slide 3" class="w-full h-full object-cover">
             </div>
         </div>
-        
-        <div class="swiper-pagination !bottom-4"></div>
+        <div class="swiper-pagination !bottom-8 z-30"></div>
     </div>
-</div>
 
+    <div class="absolute inset-0 z-10 flex items-center">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10"></div>
         
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20">
+            <div class="w-full md:max-w-xl lg:max-w-2xl">
+                <span class="text-brand-cta font-bold tracking-wider uppercase text-sm mb-4 block drop-shadow-md">
+                    New Collection
+                </span>
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
+                    Discover Your Perfect Style Today
+                </h1>
+                
+                <p class="text-gray-200 text-lg md:text-xl mb-8 drop-shadow-md">
+                    Explore our curated collection of premium products designed to elevate your everyday life.
+                </p>
+                
+                <div>
+                    <a href="/shop" class="inline-block bg-brand-cta hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition transform hover:-translate-y-0.5">
+                        Shop Now
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
 
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <h2 class="text-2xl font-bold text-brand-primary mb-8 text-center md:text-left">Browse by Category</h2>
