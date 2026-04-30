@@ -33,39 +33,48 @@
             <p class="mt-2 text-base text-gray-500">Discover our latest arrivals and find the perfect items to elevate your lifestyle.</p>
         </div>
 
-        <div class="mb-10 space-y-4">
-            
-            <div class="flex flex-wrap items-center gap-3">
-                <span class="text-sm font-semibold text-gray-900 mr-2 uppercase tracking-wider">Categories:</span>
-                <button class="px-4 py-2 rounded-full text-sm font-medium bg-gray-900 text-white shadow-sm transition-colors">All</button>
-                <button class="px-4 py-2 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">Electronics</button>
-                <button class="px-4 py-2 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">Clothing & Apparel</button>
-                <button class="px-4 py-2 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">Home & Kitchen</button>
-                <button class="px-4 py-2 rounded-full text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">Sports & Outdoors</button>
-            </div>
+        <div class="mb-10">
+            <div class="py-5 border-t border-b border-gray-200">
+                <form action="#" method="GET" class="flex flex-col sm:flex-row flex-wrap items-center gap-4">
+                    
+                    <div class="w-full sm:w-auto sm:flex-1">
+                        <select name="category" class="block w-full text-sm text-gray-700 bg-white border border-blue-300 rounded py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
+                            <option>Fashion & Accessories</option>
+                            <option>Electronics</option>
+                            <option>Clothing & Apparel</option>
+                            <option>Home & Kitchen</option>
+                            <option>Sports & Outdoors</option>
+                        </select>
+                    </div>
 
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 border-t border-b border-gray-200">
-                
-                <div class="flex items-center gap-3 w-full sm:w-auto">
-                    <label for="price-filter" class="text-sm font-medium text-gray-700">Price:</label>
-                    <select id="price-filter" class="block w-full sm:w-48 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer shadow-sm">
-                        <option>Any Price</option>
-                        <option>Under $50</option>
-                        <option>$50 to $100</option>
-                        <option>$100 to $500</option>
-                        <option>Over $500</option>
-                    </select>
-                </div>
-                
-                <div class="flex items-center justify-between w-full sm:w-auto gap-4">
-                    <span class="text-sm text-gray-500 hidden sm:block">Showing 24 results</span>
-                    <select class="block w-full sm:w-48 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer shadow-sm">
-                        <option>Sort by: Featured</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
-                        <option>Newest Arrivals</option>
-                    </select>
-                </div>
+                    <div class="w-full sm:w-auto sm:flex-1">
+                        <select name="price" class="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
+                            <option>1000 - 5000</option>
+                            <option>Under 1000</option>
+                            <option>5000 - 10000</option>
+                            <option>Over 10000</option>
+                        </select>
+                    </div>
+
+                    <div class="w-full sm:w-auto sm:flex-1">
+                        <select name="sort" class="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
+                            <option>Default</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Newest Arrivals</option>
+                        </select>
+                    </div>
+
+                    <div class="w-full sm:w-auto">
+                        <button type="submit" class="w-full sm:w-auto px-10 py-2.5 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                            Apply Filters
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="mt-4 text-sm text-gray-500 flex justify-end">
+                Showing 24 results
             </div>
         </div>
 
@@ -77,7 +86,7 @@
                 </div>
                 <div class="p-5">
                     <h3 class="text-sm font-medium text-gray-900">{{ $product->name }}</h3>
-                    <p class="mt-1 text-sm text-gray-500">{{ $product->category->name}}</p>
+                    <p class="mt-1 text-sm text-gray-500">{{ $product->category->name ?? 'Category' }}</p>
                     <div class="mt-4 flex items-center justify-between">
                         <span class="text-lg font-bold text-gray-900">₹{{ number_format($product->price, 2) }}</span>
                         <button class="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
@@ -87,6 +96,7 @@
                 </div>
             </div>
             @endforeach
+            
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300 group">
                 <div class="aspect-w-1 aspect-h-1 w-full h-56 bg-gray-200 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=400&q=80" alt="Product" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
