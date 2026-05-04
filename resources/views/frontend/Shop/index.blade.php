@@ -1,162 +1,108 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 min-h-screen">
+<div class="bg-brand-bg min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
-        <nav class="flex text-sm text-gray-500 mb-6" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                <li class="inline-flex items-center">
-                    <a href="{{ route('home') }}" class="hover:text-blue-600 transition-colors">Home</a>
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex text-sm text-s-text mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-2">
+                <li><a href="{{ route('home') }}" class="hover:text-primary transition-colors">Home</a></li>
+                <li class="text-gray-400">
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 6 10"><path stroke="currentColor" stroke-width="2" d="m1 9 4-4-4-4"/></svg>
                 </li>
-                <li>
-                    <div class="flex items-center">
-                        <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                        </svg>
-                        <a href="{{ url('/shop') }}" class="ml-1 hover:text-blue-600 transition-colors md:ml-2">Shop</a>
-                    </div>
-                </li>
-                <li aria-current="page">
-                    <div class="flex items-center">
-                        <svg class="w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                        </svg>
-                        <span class="ml-1 text-gray-900 font-medium md:ml-2">All Products</span>
-                    </div>
-                </li>
+                <li><span class="text-p-text font-semibold">Shop</span></li>
             </ol>
         </nav>
 
         <div class="mb-8">
-            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">Explore all products</h1>
-            <p class="mt-2 text-base text-gray-500">Discover our latest arrivals and find the perfect items to elevate your lifestyle.</p>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-p-text tracking-tight">Explore all products</h1>
+            <p class="mt-2 text-s-text">Find the perfect items to elevate your lifestyle with our curated collection.</p>
         </div>
 
-        <div class="mb-10">
-            <div class="py-5 border-t border-b border-gray-200">
-                <form action="#" method="GET" class="flex flex-col sm:flex-row flex-wrap items-center gap-4">
-                    
-                    <div class="w-full sm:w-auto sm:flex-1">
-                        <select name="category" class="block w-full text-sm text-gray-700 bg-white border border-blue-300 rounded py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
-                            <option>Fashion & Accessories</option>
-                            <option>Electronics</option>
-                            <option>Clothing & Apparel</option>
-                            <option>Home & Kitchen</option>
-                            <option>Sports & Outdoors</option>
-                        </select>
-                    </div>
+        <!-- Filter & Sort Bar -->
+        <div class="mb-10 py-6 border-t border-b border-gray-200">
+            <form action="{{ route('shop.index') }}" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
+                
+                {{-- Category Filter --}}
+                <select name="category" onchange="this.form.submit()" class="bg-white border border-gray-300 text-p-text text-sm rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-primary outline-none">
+                    <option value="All">All Categories</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
 
-                    <div class="w-full sm:w-auto sm:flex-1">
-                        <select name="price" class="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
-                            <option>1000 - 5000</option>
-                            <option>Under 1000</option>
-                            <option>5000 - 10000</option>
-                            <option>Over 10000</option>
-                        </select>
-                    </div>
+                {{-- Price Range Filter --}}
+                <select name="price_range" onchange="this.form.submit()" class="bg-white border border-gray-300 text-p-text text-sm rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-primary outline-none">
+                    <option value="">Any Price</option>
+                    <option value="0-1000" {{ request('price_range') == '0-1000' ? 'selected' : '' }}>Under ₹1,000</option>
+                    <option value="1000-5000" {{ request('price_range') == '1000-5000' ? 'selected' : '' }}>₹1,000 - ₹5,000</option>
+                    <option value="5000-10000" {{ request('price_range') == '5000-10000' ? 'selected' : '' }}>₹5,000 - ₹10,000</option>
+                    <option value="10000-above" {{ request('price_range') == '10000-above' ? 'selected' : '' }}>Over ₹10,000</option>
+                </select>
 
-                    <div class="w-full sm:w-auto sm:flex-1">
-                        <select name="sort" class="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
-                            <option>Default</option>
-                            <option>Price: Low to High</option>
-                            <option>Price: High to Low</option>
-                            <option>Newest Arrivals</option>
-                        </select>
-                    </div>
+                {{-- Sort Functionality --}}
+                <select name="sort" onchange="this.form.submit()" class="bg-white border border-gray-300 text-p-text text-sm rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-primary outline-none">
+                    <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest Arrivals</option>
+                    <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>Price: Low to High</option>
+                    <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>Price: High to Low</option>
+                </select>
 
-                    <div class="w-full sm:w-auto">
-                        <button type="submit" class="w-full sm:w-auto px-10 py-2.5 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                            Apply Filters
-                        </button>
-                    </div>
-                </form>
-            </div>
+                {{-- Clear Filters --}}
+                <a href="{{ route('shop.index') }}" class="w-full sm:w-auto px-10 py-2.5 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                    Reset Filters
+                </a>
+            </form>
             
-            <div class="mt-4 text-sm text-gray-500 flex justify-end">
-                Showing 24 results
+            <div class="mt-4 text-xs font-bold text-s-text text-right uppercase tracking-widest">
+                Showing {{ $products->total() }} results
             </div>
         </div>
 
+        <!-- Optimized Product Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            @foreach($products as $product)
+            @forelse($products as $product)
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300 group">
+                <!-- Image Container -->
                 <div class="aspect-w-1 aspect-h-1 w-full h-56 bg-gray-200 overflow-hidden">
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-5">
-                    <h3 class="text-sm font-medium text-gray-900">{{ $product->name }}</h3>
-                    <p class="mt-1 text-sm text-gray-500">{{ $product->category->name ?? 'Category' }}</p>
-                    <div class="mt-4 flex items-center justify-between">
-                        <span class="text-lg font-bold text-gray-900">₹{{ number_format($product->price, 2) }}</span>
-                        <button class="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                            Add
-                        </button>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-            
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300 group">
-                <div class="aspect-w-1 aspect-h-1 w-full h-56 bg-gray-200 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=400&q=80" alt="Product" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-5">
-                    <h3 class="text-sm font-medium text-gray-900">Premium Running Shoes</h3>
-                    <p class="mt-1 text-sm text-gray-500">Clothing & Apparel</p>
-                    <div class="mt-4 flex items-center justify-between">
-                        <span class="text-lg font-bold text-gray-900">$129.50</span>
-                        <button class="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                            Add
-                        </button>
-                    </div>
-                </div>
-            </div>
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                    @if($product->created_at && $product->created_at->diffInDays() < 7)
+                    
+                        <span class="absolute top-4 left-4 bg-success text-white text-[10px] font-black px-2 py-1 rounded shadow-sm">NEW</span>
+                    @endif
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300 group">
-                <div class="aspect-w-1 aspect-h-1 w-full h-56 bg-gray-200 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&w=400&q=80" alt="Product" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
                 </div>
-                <div class="p-5">
-                    <h3 class="text-sm font-medium text-gray-900">Ceramic Coffee Mug</h3>
-                    <p class="mt-1 text-sm text-gray-500">Home & Kitchen</p>
-                    <div class="mt-4 flex items-center justify-between">
-                        <span class="text-lg font-bold text-gray-900">$24.00</span>
+
+                <!-- Content -->
+                <div class="p-6">
+                    <span class="text-[10px] font-bold text-s-text uppercase tracking-widest">{{ $product->category->name ?? 'Collection' }}</span>
+                    <h3 class="text-p-text font-bold text-lg mt-1 line-clamp-1 group-hover:text-primary transition-colors">
+                        {{ $product->name }}
+                    </h3>
+                    
+                    <div class="mt-6 flex items-center justify-between">
+                        <span class="text-xl font-black text-p-text">₹{{ number_format($product->price, 0) }}</span>
                         <button class="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                            Add
+                            Buy Now
                         </button>
                     </div>
                 </div>
             </div>
-
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300 group">
-                <div class="aspect-w-1 aspect-h-1 w-full h-56 bg-gray-200 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Product" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-5">
-                    <h3 class="text-sm font-medium text-gray-900">Wireless Headphones</h3>
-                    <p class="mt-1 text-sm text-gray-500">Electronics</p>
-                    <div class="mt-4 flex items-center justify-between">
-                        <span class="text-lg font-bold text-gray-900">$89.99</span>
-                        <button class="px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                            Add
-                        </button>
-                    </div>
-                </div>
+            @empty
+            <div class="col-span-full py-24 text-center">
+                <h3 class="text-xl font-bold text-p-text">No matches found</h3>
+                <p class="text-s-text mt-2">Try changing your filters or searching for something else.</p>
+                <a href="{{ route('shop.index') }}" class="mt-6 inline-block text-primary font-bold underline">View all products</a>
             </div>
-
-        </div>
-        
-        <div class="mt-12 flex justify-center">
-            <nav class="inline-flex rounded-md shadow-sm" aria-label="Pagination">
-                <button class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-blue-500">Previous</button>
-                <button aria-current="page" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-blue-50 text-sm font-medium text-blue-600 focus:z-10 focus:ring-2 focus:ring-blue-500">1</button>
-                <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-blue-500">2</button>
-                <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-blue-500">3</button>
-                <button class="relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-blue-500">Next</button>
-            </nav>
+            @endforelse
         </div>
 
+        <!-- Custom Pagination -->
+        <div class="mt-16 flex justify-center">
+            {{ $products->links() }}
+        </div>
     </div>
-
+</div>
 @endsection
